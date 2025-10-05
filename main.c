@@ -18,14 +18,14 @@
 
 #define BLINK_GPIO 4
 
-// Ddelay function
+// Delay function
 void simple_delay(uint32_t ticks) {
     for (uint32_t i = 0; i < ticks; i++) {
     }
 }
 
 void app_main() {
-    // --- Disable the watchdogs as the absolute first action ---
+    // Disable the watchdogs
     *RTC_CNTL_WDTWPROTECT_REG = WDT_WKEY_VALUE; // Unlock RTC WDT
     *RTC_CNTL_WDTCONFIG0_REG = 0;               // Disable
     *RTC_CNTL_WDTWPROTECT_REG = 0;               // Lock
@@ -34,14 +34,16 @@ void app_main() {
     *TIMG0_WDTCONFIG0_REG = 0;               // Disable
     *TIMG0_WDTWPROTECT_REG = 0;               // Lock
 
-    // Set the GPIO pin to be an output.
+    // GPIO pin to be an output.
     *GPIO_ENABLE_W1TS_REG = (1 << BLINK_GPIO);
 
-    // Main loop (no watchdog feed needed)
     while (1) {
+
+        //LED on
         *GPIO_OUT_W1TS_REG = (1 << BLINK_GPIO);
         simple_delay(3000000); 
 
+        //LED off
         *GPIO_OUT_W1TC_REG = (1 << BLINK_GPIO);
         simple_delay(3000000);
     }
