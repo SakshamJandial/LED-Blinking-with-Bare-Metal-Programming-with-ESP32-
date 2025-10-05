@@ -1,7 +1,3 @@
-/*
- * Final Bare-Metal Linker Script for ESP32 (v3)
- * Correctly handles all literal placements, including the entry section.
- */
 ENTRY(_start)
 
 MEMORY
@@ -12,8 +8,7 @@ MEMORY
 
 SECTIONS
 {
-  /* The entry section. The key change is here: we now collect
-     the entry code AND its own literal pool together first. */
+  /* The entry section.We collect the entry code AND its own literal pool together. */
   .entry.text :
   {
     *(.entry.literal .entry.text)

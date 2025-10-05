@@ -1,5 +1,3 @@
-# startup.S: Bare-metal startup code for the ESP32 (v2)
-
 .section .entry.text, "ax"  # Place this in a special entry section
 .global _start              # Make the _start symbol visible to the linker
 
